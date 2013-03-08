@@ -1,2 +1,2 @@
-mediacommons_editorialworkflow
+MediaCommons Editorial Workflow
 ==============================

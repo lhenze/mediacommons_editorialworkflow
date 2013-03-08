@@ -2,18 +2,18 @@
 
 // http://drupal.stackexchange.com/questions/30232/how-to-theme-a-radio-button-field-on-node-edit-form
 
-function mediacommons_ui_init() {
+function mediacommons_editorialworkflow_init() {
 	
   $path_is_admin = path_is_admin(current_path());
   
   if ($path_is_admin) {
     global $user;
-    
+
     $menu_object = menu_get_object();
     
     $user->contribute = array(
-      'hubs_can_contribute' => mediacommons_ui_hubs_user_can_contribute(),
-      'spokes_can_contribute' => mediacommons_ui_additional_authors(),
+      'hubs_can_contribute' => mediacommons_editorialworkflow_hubs_user_can_contribute(),
+      'spokes_can_contribute' => mediacommons_editorialworkflow_additional_authors(),
     );
     
     if (isset($menu_object)) {
@@ -62,14 +62,14 @@ function mediacommons_ui_init() {
 /**
  * Implementation of hook_perm().
  */
-function mediacommons_ui_permission() {
+function mediacommons_editorialworkflow_permission() {
   return array(
     'access mediacommons content' => array(
       'title' => t('Access mediacommons content'),
       'description' => t(''), 
     ),
-    'contribute content' => array(
-      'title' => t('Contribute content'),
+    'contribute content spoke' => array(
+      'title' => t('Contribute spoke'),
       'description' => t(''), 
     ),
     'contribute content hub' => array(
@@ -99,26 +99,26 @@ function mediacommons_ui_permission() {
   );
 }
 
-function mediacommons_ui_menu() {
+function mediacommons_editorialworkflow_menu() {
 
   $items['admin/contribute'] = array(
     'title' => t('Contribute'),
-    'page callback' => 'mediacommons_ui_contribute_page',
+    'page callback' => 'mediacommons_editorialworkflow_contribute_page',
     'page arguments' => array(1),
     'access callback' => TRUE,
     'weight' => 1,
-    'file' => 'inc/mediacommons_ui.pages.inc',
+    'file' => 'inc/mediacommons_editorialworkflow.pages.inc',
     'type' => MENU_LOCAL_TASK,
   );
 
   $items['admin/contribute/dashboard'] = array(
     'title' => t('Administrate site'),
     'description' => 'Manage users, set current hub and upcoming hubs.',
-    'page callback' => 'mediacommons_ui_admin_page',
+    'page callback' => 'mediacommons_editorialworkflow_admin_page',
     'page arguments' => array(1),
     'access arguments' => array('access dashboard'),
     'weight' => 3,
-    'file' => 'inc/mediacommons_ui.pages.inc',
+    'file' => 'inc/mediacommons_editorialworkflow.pages.inc',
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -126,20 +126,20 @@ function mediacommons_ui_menu() {
     'title' => 'Set current cluster',
     'description' => 'Set current hub, selected item will be displayed in the frontpage.',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('mediacommons_ui_set_current_hub'),
+    'page arguments' => array('mediacommons_editorialworkflow_set_current_hub'),
     'access arguments' => array('set current hub'),
     'type' => MENU_NORMAL_ITEM,
-    'file' => 'inc/mediacommons_ui.pages.inc',
+    'file' => 'inc/mediacommons_editorialworkflow.pages.inc',
   );
 
   return $items;
 
 }
 
-function mediacommons_ui_additional_authors() {
+function mediacommons_editorialworkflow_additional_authors() {
   global $user;
 
-  $mediacommons_ui_additional_author = &drupal_static(__FUNCTION__, array());
+  $mediacommons_editorialworkflow_additional_author = &drupal_static(__FUNCTION__, array());
 
   $query = new EntityFieldQuery;
   
@@ -149,14 +149,14 @@ function mediacommons_ui_additional_authors() {
     ->execute();
 
   if (isset($result['node'])) {
-    $mediacommons_ui_additional_author = array_keys($result['node']);
+    $mediacommons_editorialworkflow_additional_author = array_keys($result['node']);
   }
 
-  return $mediacommons_ui_additional_author;
+  return $mediacommons_editorialworkflow_additional_author;
 
 }
 
-function mediacommons_ui_hubs_user_can_contribute() {
+function mediacommons_editorialworkflow_hubs_user_can_contribute() {
   global $user;
 
   $hubs_user_can_contribute = &drupal_static(__FUNCTION__, array());
@@ -177,7 +177,7 @@ function mediacommons_ui_hubs_user_can_contribute() {
 
 }
 
-function mediacommons_ui_preprocess_button(&$variables) {
+function mediacommons_editorialworkflow_preprocess_button(&$variables) {
   
   global $user;
   
@@ -227,7 +227,7 @@ function mediacommons_ui_preprocess_button(&$variables) {
   }
 }
 
-function mediacommons_ui_preprocess_container(&$variables) {
+function mediacommons_editorialworkflow_preprocess_container(&$variables) {
   global $user;
   
   if (isset($user->contribute)) {
@@ -244,7 +244,7 @@ function mediacommons_ui_preprocess_container(&$variables) {
   }
 }
 
-function mediacommons_ui_preprocess_textfield(&$variables) {
+function mediacommons_editorialworkflow_preprocess_textfield(&$variables) {
   global $user;
   
   if (isset($user->contribute)) {
@@ -255,7 +255,7 @@ function mediacommons_ui_preprocess_textfield(&$variables) {
   }
 }
 
-function mediacommons_ui_preprocess_checkbox(&$variables) {
+function mediacommons_editorialworkflow_preprocess_checkbox(&$variables) {
   global $user;
   
   if (isset($user->contribute) && !in_array('administrator', $user->roles)) { 
@@ -282,16 +282,16 @@ function mediacommons_ui_preprocess_checkbox(&$variables) {
   }
 }
 
-function mediacommons_ui_add_assets() {
-	$module_path = drupal_get_path('module', 'mediacommons_ui');
-  drupal_add_css($module_path . '/mediacommons_ui.css', 'module');
-  drupal_add_js($module_path . '/js/mediacommons_ui.js', array('type' => 'file', 'group' => JS_DEFAULT,));
+function mediacommons_editorialworkflow_add_assets() {
+	$module_path = drupal_get_path('module', 'mediacommons_editorialworkflow');
+    drupal_add_css($module_path . '/mediacommons_editorialworkflow.css', 'module');
+    drupal_add_js($module_path . '/js/mediacommons_editorialworkflow.js', array('type' => 'file', 'group' => JS_DEFAULT,));
 }
 
-function mediacommons_ui_form_hub_node_form_alter(&$form, &$form_state, $form_id) {
+function mediacommons_editorialworkflow_form_hub_node_form_alter(&$form, &$form_state, $form_id) {
   
   /** Add CSS and JS files */
-	mediacommons_ui_add_assets();
+	mediacommons_editorialworkflow_add_assets();
 	
   $field = field_get_items('node', $form['#node'], 'field_type');
 
@@ -307,13 +307,13 @@ function mediacommons_ui_form_hub_node_form_alter(&$form, &$form_state, $form_id
     }
   }
 }
-function mediacommons_ui_preprocess_image_widget(&$variables) {
+function mediacommons_editorialworkflow_preprocess_image_widget(&$variables) {
   $element = &$variables['element'];
 }
 
-function mediacommons_ui_form_spoke_node_form_alter(&$form, &$form_state, $form_id) {
+function mediacommons_editorialworkflow_form_spoke_node_form_alter(&$form, &$form_state, $form_id) {
   global $user;
-  mediacommons_ui_add_assets();
+  mediacommons_editorialworkflow_add_assets();
   /** indication of that this form was process by the editoriar workflow module */
   $form['#attributes']['class'][] = 'contributor';
   

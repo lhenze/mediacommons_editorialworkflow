@@ -1,7 +1,7 @@
 <?php
 
 
-function mediacommons_ui_contribute_page() {
+function mediacommons_editorialworkflow_contribute_page() {
 
   global $user;
 
@@ -79,15 +79,15 @@ function mediacommons_ui_contribute_page() {
 
 }
 
-function mediacommons_ui_page_set_upcoming_hub() {
+function mediacommons_editorialworkflow_page_set_upcoming_hub() {
   return;
 }
 
-function mediacommons_ui_set_current_hub() {
+function mediacommons_editorialworkflow_set_current_hub() {
   return;
 }
 
-function mediacommons_ui_admin_page() {
+function mediacommons_editorialworkflow_admin_page() {
   
   $output = '';
   

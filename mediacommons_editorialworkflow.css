@@ -13,11 +13,7 @@
 .tao .field-name-field-period .date-float,
 .tao .field-name-field-period .description,
 .tao .links.secondary-menu,
-.tao .toolbar-drawer
-
-/** others */
-
-{
+.tao .toolbar-drawer {
   display: none;
   visibility: hidden;  
 }
@@ -30,13 +26,12 @@
 .page-node-add-cluster .field-name-field-representative-image,
 .node-cluster-type-video .field-name-field-video-embed-link,
 .node-cluster-type-video field-name-field-tease-image, 
-.node-cluster-type-image .field-name-field-representative-image
-{
+.node-cluster-type-image .field-name-field-representative-image {
   display: block;
 }
 
 .tao .messages {
-	padding: .5em 1em;
+  padding: .5em 1em;
 }
 
 .image-preview img {
@@ -45,11 +40,6 @@
 
 .image-preview img:hover {
   cursor: move;
-}
-
-.imagefield-crop-cropbox {
-	/** display: none; */
-  /** visibility: hidden; */
 }
 
 .image-preview .image-preview-actions, .image-preview .image-preview-actions {
