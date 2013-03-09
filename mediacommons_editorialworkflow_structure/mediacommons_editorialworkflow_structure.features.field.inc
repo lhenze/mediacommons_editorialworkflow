@@ -79,7 +79,7 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '8',
+        'weight' => '6',
       ),
     ),
   );
@@ -165,7 +165,7 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'user_reference_autocomplete',
-        'weight' => '7',
+        'weight' => '5',
       ),
     ),
   );
@@ -232,7 +232,7 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '5',
+        'weight' => '1',
       ),
     ),
   );
@@ -269,6 +269,7 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'hub',
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -307,8 +308,8 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
           'text_parts' => array(),
           'year_range' => '-3:+3',
         ),
-        'type' => 'date_popup',
-        'weight' => '9',
+        'type' => 'date_select',
+        'weight' => '7',
       ),
     ),
   );
@@ -480,92 +481,7 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '31',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-hub-field_tease_image'.
-  $fields['node-hub-field_tease_image'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_tease_image',
-      'foreign keys' => array(
-        'fid' => array(
-          'columns' => array(
-            'fid' => 'fid',
-          ),
-          'table' => 'file_managed',
-        ),
-      ),
-      'indexes' => array(
-        'fid' => array(
-          0 => 'fid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'image',
-      'settings' => array(
-        'default_image' => 0,
-        'uri_scheme' => 'public',
-      ),
-      'translatable' => '0',
-      'type' => 'image',
-    ),
-    'field_instance' => array(
-      'bundle' => 'hub',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'hidden',
-          'module' => 'image',
-          'settings' => array(
-            'image_link' => '',
-            'image_style' => '',
-          ),
-          'type' => 'image',
-          'weight' => '10',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_tease_image',
-      'label' => 'Tease image',
-      'required' => 0,
-      'settings' => array(
-        'alt_field' => 1,
-        'default_image' => 0,
-        'file_directory' => '',
-        'file_extensions' => 'png gif jpg jpeg',
-        'max_filesize' => '',
-        'max_resolution' => '',
-        'min_resolution' => '',
-        'title_field' => 1,
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'imagefield_crop',
-        'settings' => array(
-          'collapsible' => 2,
-          'croparea' => '500x500',
-          'enforce_minimum' => TRUE,
-          'enforce_ratio' => TRUE,
-          'preview_image_style' => 'thumbnail',
-          'progress_indicator' => 'throbber',
-          'resolution' => '200x150',
-        ),
-        'type' => 'imagefield_crop_widget',
-        'weight' => '3',
+        'weight' => '8',
       ),
     ),
   );
@@ -631,7 +547,7 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -688,7 +604,7 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
         'module' => 'video_embed_field',
         'settings' => array(),
         'type' => 'video_embed_field_video',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -775,11 +691,11 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_additional_authors',
       'foreign keys' => array(
-        'node' => array(
+        'users' => array(
           'columns' => array(
-            'target_id' => 'nid',
+            'target_id' => 'uid',
           ),
-          'table' => 'node',
+          'table' => 'users',
         ),
       ),
       'indexes' => array(
@@ -851,7 +767,7 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '6',
+        'weight' => '4',
       ),
     ),
   );
@@ -878,13 +794,13 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
         ),
       ),
       'locked' => '0',
-      'module' => 'mediacommons_image_extended',
+      'module' => 'mediacommons_imageextended',
       'settings' => array(
         'default_image' => 0,
         'uri_scheme' => 'public',
       ),
       'translatable' => '0',
-      'type' => 'mediacommons_image_extended',
+      'type' => 'mediacommons_imageextended',
     ),
     'field_instance' => array(
       'bundle' => 'spoke',
@@ -893,17 +809,16 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'mediacommons_image_extended',
+          'module' => 'mediacommons_imageextended',
           'settings' => array(),
-          'type' => 'mediacommons_image_extended_original',
-          'weight' => '6',
+          'type' => 'mediacommons_imageextended_original',
+          'weight' => 6,
         ),
         'teaser' => array(
-          'label' => 'hidden',
-          'module' => 'mediacommons_image_extended',
+          'label' => 'above',
           'settings' => array(),
-          'type' => 'mediacommons_image_extended_representative_image',
-          'weight' => '1',
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'node',
@@ -918,101 +833,25 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'mediacommons_image_extended',
+        'module' => 'mediacommons_imageextended',
         'settings' => array(
           'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),
-        'type' => 'mediacommons_image_extended',
-        'weight' => '4',
+        'type' => 'mediacommons_imageextended',
+        'weight' => '3',
       ),
     ),
   );
 
-  // Exported field: 'node-spoke-field_clusters'.
-  $fields['node-spoke-field_clusters'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_clusters',
-      'foreign keys' => array(
-        'nid' => array(
-          'columns' => array(
-            'nid' => 'nid',
-          ),
-          'table' => 'node',
-        ),
-      ),
-      'indexes' => array(
-        'nid' => array(
-          0 => 'nid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'node_reference',
-      'settings' => array(
-        'referenceable_types' => array(
-          'article' => 0,
-          'hub' => 'hub',
-          'page' => 0,
-          'spoke' => 0,
-        ),
-        'view' => array(
-          'args' => array(),
-          'display_name' => '',
-          'view_name' => '',
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'node_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'spoke',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'node_reference',
-          'settings' => array(),
-          'type' => 'node_reference_default',
-          'weight' => '0',
-        ),
-        'teaser' => array(
-          'label' => 'hidden',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '6',
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_clusters',
-      'label' => 'Part of',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_buttons',
-        'weight' => '2',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-spoke-field_document_textarea_body'.
-  $fields['node-spoke-field_document_textarea_body'] = array(
+  // Exported field: 'node-spoke-field_body'.
+  $fields['node-spoke-field_body'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_document_textarea_body',
+      'field_name' => 'field_body',
       'foreign keys' => array(
         'format' => array(
           'columns' => array(
@@ -1039,24 +878,21 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '2',
+          'weight' => 8,
         ),
         'teaser' => array(
-          'label' => 'hidden',
-          'module' => 'text',
-          'settings' => array(
-            'trim_length' => '200',
-          ),
-          'type' => 'text_summary_or_trimmed',
-          'weight' => '0',
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_document_textarea_body',
+      'field_name' => 'field_body',
       'label' => 'Body',
       'required' => 0,
       'settings' => array(
@@ -1072,7 +908,84 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '3',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-spoke-field_part_of_hub'.
+  $fields['node-spoke-field_part_of_hub'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_part_of_hub',
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'hub' => 'hub',
+          ),
+        ),
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'spoke',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 7,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_part_of_hub',
+      'label' => 'Part of',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '6',
       ),
     ),
   );
@@ -1139,7 +1052,7 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '8',
+        'weight' => '5',
       ),
     ),
   );
@@ -1228,7 +1141,6 @@ function mediacommons_editorialworkflow_structure_field_default_fields() {
   t('Start and end dates');
   t('Tagline');
   t('Tags');
-  t('Tease image');
   t('Video embed link');
 
   return $fields;
