@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * mediacommons_editorialworkflow_structure.features.taxonomy.inc
+ * mediacommons_datastructure.features.taxonomy.inc
  */
 
 /**
  * Implements hook_taxonomy_default_vocabularies().
  */
-function mediacommons_editorialworkflow_structure_taxonomy_default_vocabularies() {
+function mediacommons_datastructure_taxonomy_default_vocabularies() {
   return array(
     'tags' => array(
       'name' => 'Tags',

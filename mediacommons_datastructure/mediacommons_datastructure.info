@@ -1,10 +1,10 @@
 name = MediaCommons Editorial Workflow Data Structure
 description = All the necessary content types and configurations to run the Editorial Workflow module
 core = 7.x
-package = Features
+package = MediaCommons
 php = 5.2.4
-version = 7.x-1.0-beta4
-project = mediacommons_editorialworkflow_structure
+version = 7.x-1.0-beta8
+project = mediacommons_datastructure
 dependencies[] = corresponding_node_references
 dependencies[] = ctools
 dependencies[] = date

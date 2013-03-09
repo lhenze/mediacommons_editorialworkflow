@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the MediaCommons Editorial Workflow Data Structure feature.
- */
-
-include_once 'mediacommons_editorialworkflow_structure.features.inc';

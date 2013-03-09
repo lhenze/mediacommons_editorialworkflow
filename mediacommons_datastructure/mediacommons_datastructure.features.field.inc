@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * mediacommons_editorialworkflow_structure.features.field.inc
+ * mediacommons_datastructure.features.field.inc
  */
 
 /**
  * Implements hook_field_default_fields().
  */
-function mediacommons_editorialworkflow_structure_field_default_fields() {
+function mediacommons_datastructure_field_default_fields() {
   $fields = array();
 
   // Exported field: 'node-hub-field_cluster_tags'.

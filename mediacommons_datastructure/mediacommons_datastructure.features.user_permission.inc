@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * mediacommons_editorialworkflow_structure.features.user_permission.inc
+ * mediacommons_datastructure.features.user_permission.inc
  */
 
 /**
  * Implements hook_user_default_permissions().
  */
-function mediacommons_editorialworkflow_structure_user_default_permissions() {
+function mediacommons_datastructure_user_default_permissions() {
   $permissions = array();
 
   // Exported permission: access content.
@@ -26,44 +26,8 @@ function mediacommons_editorialworkflow_structure_user_default_permissions() {
     'name' => 'access content overview',
     'roles' => array(
       0 => 'administrator',
-      1 => 'curator',
-      2 => 'managing editor',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: access mediacommons content.
-  $permissions['access mediacommons content'] = array(
-    'name' => 'access mediacommons content',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'anonymous user',
-      2 => 'authenticated user',
-      3 => 'curator',
-      4 => 'managing editor',
-    ),
-    'module' => 'mediacommons_ui',
-  );
-
-  // Exported permission: access mediacommons dashboard.
-  $permissions['access mediacommons dashboard'] = array(
-    'name' => 'access mediacommons dashboard',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'curator',
-      2 => 'managing editor',
-    ),
-    'module' => 'mediacommons_ui',
-  );
-
-  // Exported permission: admin contributors content.
-  $permissions['admin contributors content'] = array(
-    'name' => 'admin contributors content',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'curator',
-    ),
-    'module' => 'mediacommons_ui',
   );
 
   // Exported permission: administer content types.
@@ -81,7 +45,7 @@ function mediacommons_editorialworkflow_structure_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
     ),
-    'module' => 'mediacommons_image_extended',
+    'module' => 'mediacommons_imageextended',
   );
 
   // Exported permission: administer nodes.
@@ -89,7 +53,6 @@ function mediacommons_editorialworkflow_structure_user_default_permissions() {
     'name' => 'administer nodes',
     'roles' => array(
       0 => 'administrator',
-      1 => 'curator',
     ),
     'module' => 'node',
   );
@@ -101,25 +64,6 @@ function mediacommons_editorialworkflow_structure_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: contribute content.
-  $permissions['contribute content'] = array(
-    'name' => 'contribute content',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'authenticated user',
-      2 => 'curator',
-      3 => 'managing editor',
-    ),
-    'module' => 'mediacommons_ui',
-  );
-
-  // Exported permission: contribute content hub.
-  $permissions['contribute content hub'] = array(
-    'name' => 'contribute content hub',
-    'roles' => array(),
-    'module' => 'mediacommons_ui',
   );
 
   // Exported permission: create hub content.
@@ -246,36 +190,13 @@ function mediacommons_editorialworkflow_structure_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: promote hub content.
-  $permissions['promote hub content'] = array(
-    'name' => 'promote hub content',
-    'roles' => array(),
-    'module' => 'mediacommons_ui',
-  );
-
   // Exported permission: revert revisions.
   $permissions['revert revisions'] = array(
     'name' => 'revert revisions',
     'roles' => array(
       0 => 'administrator',
-      1 => 'curator',
-      2 => 'managing editor',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: set current hub.
-  $permissions['set current hub'] = array(
-    'name' => 'set current hub',
-    'roles' => array(),
-    'module' => 'mediacommons_ui',
-  );
-
-  // Exported permission: set upcoming hub.
-  $permissions['set upcoming hub'] = array(
-    'name' => 'set upcoming hub',
-    'roles' => array(),
-    'module' => 'mediacommons_ui',
   );
 
   // Exported permission: view own unpublished content.
@@ -283,8 +204,6 @@ function mediacommons_editorialworkflow_structure_user_default_permissions() {
     'name' => 'view own unpublished content',
     'roles' => array(
       0 => 'administrator',
-      1 => 'curator',
-      2 => 'managing editor',
     ),
     'module' => 'node',
   );
@@ -294,8 +213,6 @@ function mediacommons_editorialworkflow_structure_user_default_permissions() {
     'name' => 'view revisions',
     'roles' => array(
       0 => 'administrator',
-      1 => 'curator',
-      2 => 'managing editor',
     ),
     'module' => 'node',
   );
