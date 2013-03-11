@@ -4,4 +4,6 @@ package = MediaCommons
 version = 7.x-1.0-beta1
 project = mediacommons_editorialworkflow
 
-dependencies[] = mediacommons_editorialworkflow_structure
+
+
+dependencies[] = mediacommons_datastructure
