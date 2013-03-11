@@ -84,6 +84,90 @@ function mediacommons_datastructure_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-hub-field_co_editor'.
+  $fields['node-hub-field_co_editor'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_co_editor',
+      'foreign keys' => array(
+        'uid' => array(
+          'columns' => array(
+            'uid' => 'uid',
+          ),
+          'table' => 'users',
+        ),
+      ),
+      'indexes' => array(
+        'uid' => array(
+          0 => 'uid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'user_reference',
+      'settings' => array(
+        'referenceable_roles' => array(
+          2 => 0,
+          3 => 0,
+          4 => '4',
+          5 => 0,
+        ),
+        'referenceable_status' => array(
+          0 => 0,
+          1 => '1',
+        ),
+        'view' => array(
+          'args' => array(),
+          'display_name' => '',
+          'view_name' => '',
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'user_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'hub',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'user_reference',
+          'settings' => array(),
+          'type' => 'user_reference_default',
+          'weight' => 16,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_co_editor',
+      'label' => 'Co-editor',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'user_reference',
+        'settings' => array(
+          'autocomplete_match' => 'contains',
+          'autocomplete_path' => 'user_reference/autocomplete',
+          'size' => '60',
+        ),
+        'type' => 'user_reference_autocomplete',
+        'weight' => '9',
+      ),
+    ),
+  );
+
   // Exported field: 'node-hub-field_contributors'.
   $fields['node-hub-field_contributors'] = array(
     'field_config' => array(
@@ -109,10 +193,10 @@ function mediacommons_datastructure_field_default_fields() {
       'module' => 'user_reference',
       'settings' => array(
         'referenceable_roles' => array(
-          2 => 0,
-          3 => '3',
-          5 => '5',
-          6 => '6',
+          2 => '2',
+          3 => 0,
+          4 => 0,
+          5 => 0,
         ),
         'referenceable_status' => array(
           0 => 0,
@@ -682,96 +766,6 @@ function mediacommons_datastructure_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-spoke-field_additional_authors'.
-  $fields['node-spoke-field_additional_authors'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_additional_authors',
-      'foreign keys' => array(
-        'users' => array(
-          'columns' => array(
-            'target_id' => 'uid',
-          ),
-          'table' => 'users',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'base',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'sort' => array(
-            'type' => 'none',
-          ),
-          'target_bundles' => array(),
-        ),
-        'target_type' => 'user',
-        'userreference_realname' => 1,
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'spoke',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'entityreference',
-          'settings' => array(
-            'links' => 0,
-            'view_mode' => 'full',
-          ),
-          'type' => 'entityreference_entity_view',
-          'weight' => '1',
-        ),
-        'teaser' => array(
-          'label' => 'hidden',
-          'module' => 'entityreference',
-          'settings' => array(
-            'links' => 1,
-            'view_mode' => 'full',
-          ),
-          'type' => 'entityreference_entity_view',
-          'weight' => '2',
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_additional_authors',
-      'label' => 'Additional Authors',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'entityreference',
-        'settings' => array(
-          'match_operator' => 'CONTAINS',
-          'path' => '',
-          'size' => '60',
-        ),
-        'type' => 'entityreference_autocomplete',
-        'weight' => '4',
-      ),
-    ),
-  );
-
   // Exported field: 'node-spoke-field_attached_images'.
   $fields['node-spoke-field_attached_images'] = array(
     'field_config' => array(
@@ -839,7 +833,7 @@ function mediacommons_datastructure_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'mediacommons_imageextended',
-        'weight' => '3',
+        'weight' => '2',
       ),
     ),
   );
@@ -908,7 +902,91 @@ function mediacommons_datastructure_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '2',
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-spoke-field_contributors'.
+  $fields['node-spoke-field_contributors'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_contributors',
+      'foreign keys' => array(
+        'uid' => array(
+          'columns' => array(
+            'uid' => 'uid',
+          ),
+          'table' => 'users',
+        ),
+      ),
+      'indexes' => array(
+        'uid' => array(
+          0 => 'uid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'user_reference',
+      'settings' => array(
+        'referenceable_roles' => array(
+          2 => '2',
+          3 => 0,
+          4 => 0,
+          5 => 0,
+        ),
+        'referenceable_status' => array(
+          0 => 0,
+          1 => '1',
+        ),
+        'view' => array(
+          'args' => array(),
+          'display_name' => '',
+          'view_name' => '',
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'user_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'spoke',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'user_reference',
+          'settings' => array(),
+          'type' => 'user_reference_default',
+          'weight' => 9,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_contributors',
+      'label' => 'Contributors',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'user_reference',
+        'settings' => array(
+          'autocomplete_match' => 'contains',
+          'autocomplete_path' => 'user_reference/autocomplete',
+          'size' => '60',
+        ),
+        'type' => 'user_reference_autocomplete',
+        'weight' => '3',
       ),
     ),
   );
@@ -985,7 +1063,7 @@ function mediacommons_datastructure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '6',
+        'weight' => '5',
       ),
     ),
   );
@@ -1052,94 +1130,25 @@ function mediacommons_datastructure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '5',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-spoke-field_tagline'.
-  $fields['node-spoke-field_tagline'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_tagline',
-      'foreign keys' => array(
-        'format' => array(
-          'columns' => array(
-            'format' => 'format',
-          ),
-          'table' => 'filter_format',
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'text',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'text_long',
-    ),
-    'field_instance' => array(
-      'bundle' => 'spoke',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Create a brief headline for your piece. A tweet-sized abstract, if you like.',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '4',
-        ),
-        'teaser' => array(
-          'label' => 'hidden',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '3',
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_tagline',
-      'label' => 'Tagline',
-      'required' => 0,
-      'settings' => array(
-        'text_processing' => '0',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'text',
-        'settings' => array(
-          'rows' => '2',
-        ),
-        'type' => 'text_textarea',
-        'weight' => '1',
+        'weight' => '4',
       ),
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Additional Authors');
   t('Attached Images');
   t('Body');
   t('Choose type');
+  t('Co-editor');
   t('Contributed Pieces');
   t('Contributors');
-  t('Create a brief headline for your piece. A tweet-sized abstract, if you like.');
   t('Description');
   t('Part of');
   t('Publication Status');
   t('Publish or unpublish this piece. (You can unpublish something that has already been published.)');
   t('Representative Image');
   t('Start and end dates');
-  t('Tagline');
   t('Tags');
   t('Video embed link');
 
