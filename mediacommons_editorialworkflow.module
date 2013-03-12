@@ -1,19 +1,18 @@
 <?php
 
-// http://drupal.stackexchange.com/questions/30232/how-to-theme-a-radio-button-field-on-node-edit-form
-
 function mediacommons_editorialworkflow_init() {
 	
   $path_is_admin = path_is_admin(current_path());
   
   if ($path_is_admin) {
+
     global $user;
 
     $menu_object = menu_get_object();
     
     $user->contribute = array(
       'hubs_can_contribute' => mediacommons_editorialworkflow_hubs_user_can_contribute(),
-      'spokes_can_contribute' => mediacommons_editorialworkflow_additional_authors(),
+      'spokes_can_contribute' => mediacommons_editorialworkflow_contributor(),
     );
     
     if (isset($menu_object)) {
@@ -136,41 +135,55 @@ function mediacommons_editorialworkflow_menu() {
 
 }
 
-function mediacommons_editorialworkflow_additional_authors() {
+function mediacommons_editorialworkflow_contributor() {
   global $user;
+	
+	$field = field_info_instances('node');
+	$mediacommons_editorialworkflow_contributor = &drupal_static(__FUNCTION__, array());
+	
+	/** If content-type HUB or SPOKE exist and field_contributors exist in any of the 2 types continue */
+	if ((isset($field['hub']) && isset($field['hub']['field_contributors'])) || (isset($field['spoke']) && isset($field['spoke']['field_contributors']))) {
 
-  $mediacommons_editorialworkflow_additional_author = &drupal_static(__FUNCTION__, array());
+    $query = new EntityFieldQuery;
 
-  $query = new EntityFieldQuery;
-  
-  $result = $query
-    ->entityCondition('entity_type', 'node')
-    ->fieldCondition('field_additional_authors', 'target_id', $user->uid, '=')
-    ->execute();
+    $result = $query
+              ->entityCondition('entity_type', 'node')
+              ->fieldCondition('field_contributors', 'uid', $user->uid, '=')
+              ->execute();
+							
+    if (isset($result['node'])) {
+      $mediacommons_editorialworkflow_contributor = array_keys($result['node']);
+    }
+		
+	}
 
-  if (isset($result['node'])) {
-    $mediacommons_editorialworkflow_additional_author = array_keys($result['node']);
-  }
-
-  return $mediacommons_editorialworkflow_additional_author;
+  return $mediacommons_editorialworkflow_contributor;
 
 }
 
 function mediacommons_editorialworkflow_hubs_user_can_contribute() {
+  	
   global $user;
+	
+	$field = field_info_instances('node');
 
   $hubs_user_can_contribute = &drupal_static(__FUNCTION__, array());
+	
+	/** If content-type HUB or SPOKE exist and field_contributors exist in any of the 2 types continue */
+	if ((isset($field['hub']) && isset($field['hub']['field_contributors']))) {	
 
-  $query = new EntityFieldQuery;
+    $query = new EntityFieldQuery;
 
-  $result = $query
-  ->entityCondition('entity_type', 'node')
-  ->entityCondition('bundle', 'hub')
-  ->fieldCondition('field_contributors', 'uid', $user->uid, '=')
-  ->execute();
+    $result = $query
+                ->entityCondition('entity_type', 'node')
+                ->entityCondition('bundle', 'hub')
+                ->fieldCondition('field_contributors', 'uid', $user->uid, '=')
+                ->execute();
 
-  if (isset($result['node'])) {
-    $hubs_user_can_contribute = array_keys($result['node']);
+    if (isset($result['node'])) {
+      $hubs_user_can_contribute = array_keys($result['node']);
+    }
+
   }
 
   return $hubs_user_can_contribute;
@@ -271,7 +284,7 @@ function mediacommons_editorialworkflow_preprocess_checkbox(&$variables) {
         );
       }
 
-      /** if is already checked and user is not the cluster manager; disable the field and mark as readonly */
+      /** if is already checked and user is not the cluster manager; disable the field and mark as read-only */
       if ($element['#checked']) {
         $element['#attributes'] = array(
           'disabled' => 'disabled',
@@ -313,17 +326,23 @@ function mediacommons_editorialworkflow_preprocess_image_widget(&$variables) {
 
 function mediacommons_editorialworkflow_form_spoke_node_form_alter(&$form, &$form_state, $form_id) {
   global $user;
+  
   mediacommons_editorialworkflow_add_assets();
-  /** indication of that this form was process by the editoriar workflow module */
+	
+  /** indication of that this form was process by the editorial workflow module */
   $form['#attributes']['class'][] = 'contributor';
   
   if (isset($user->contribute['contributor'])) {
+  	
     $form['#attributes']['class'][] = $user->contribute['role'];
+		
     if ($user->contribute['contributor']) {
       drupal_set_message(t('Contributing as @contributor.', array('@contributor' => $user->contribute['role'])), 'status');
     }
+		
     else {
       drupal_set_message(t('You are not allow to edit @title. If you are a contributor to this piece ask the primary author to add you as an additional author.', array('@title' => $user->contribute['current_title'])), 'warning');      
     }
+		
   }
 }
