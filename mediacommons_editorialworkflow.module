@@ -1,5 +1,30 @@
 <?php
 
+/**
+ * Implements hook_node_info().
+ */
+function mediacommons_editorialworkflow_node_info() {
+  $items = array(
+    'hub' => array(
+      'name' => t('Hub'),
+      'base' => 'node_content',
+      'description' => t('A theme-based aggregation of contributed pieces.'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+    'spoke' => array(
+      'name' => t('Spoke'),
+      'base' => 'node_content',
+      'description' => t('A text or multimedia document.'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+  );
+  return $items;
+}
+
 function mediacommons_editorialworkflow_init() {
 	
   $path_is_admin = path_is_admin(current_path());
@@ -14,7 +39,7 @@ function mediacommons_editorialworkflow_init() {
       'hubs_can_contribute' => mediacommons_editorialworkflow_hubs_user_can_contribute(),
       'spokes_can_contribute' => mediacommons_editorialworkflow_contributor(),
     );
-    
+		
     if (isset($menu_object)) {
       
       $user->contribute += array(
@@ -106,7 +131,7 @@ function mediacommons_editorialworkflow_menu() {
     'page arguments' => array(1),
     'access callback' => TRUE,
     'weight' => 1,
-    'file' => 'inc/mediacommons_editorialworkflow.pages.inc',
+    'file' => 'includes/mediacommons_editorialworkflow.pages.inc',
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -117,7 +142,7 @@ function mediacommons_editorialworkflow_menu() {
     'page arguments' => array(1),
     'access arguments' => array('access dashboard'),
     'weight' => 3,
-    'file' => 'inc/mediacommons_editorialworkflow.pages.inc',
+    'file' => 'includes/mediacommons_editorialworkflow.pages.inc',
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -128,7 +153,7 @@ function mediacommons_editorialworkflow_menu() {
     'page arguments' => array('mediacommons_editorialworkflow_set_current_hub'),
     'access arguments' => array('set current hub'),
     'type' => MENU_NORMAL_ITEM,
-    'file' => 'inc/mediacommons_editorialworkflow.pages.inc',
+    'file' => 'includes/mediacommons_editorialworkflow.pages.inc',
   );
 
   return $items;
@@ -266,6 +291,7 @@ function mediacommons_editorialworkflow_preprocess_textfield(&$variables) {
       $element['#attributes']['placeholder'] = t('Untitled');
     }
   }
+
 }
 
 function mediacommons_editorialworkflow_preprocess_checkbox(&$variables) {
@@ -295,37 +321,63 @@ function mediacommons_editorialworkflow_preprocess_checkbox(&$variables) {
   }
 }
 
+function mediacommons_editorialworkflow_node_presave($node) {
+
+	// Inserting a new node
+	// @TODO: test work, add validation
+  if (!$node->nid && $node->type == 'spoke') {
+		$node->field_contributors[$node->language][0]['uid'] = $node->uid;
+	}
+
+}
+
 function mediacommons_editorialworkflow_add_assets() {
 	$module_path = drupal_get_path('module', 'mediacommons_editorialworkflow');
-    drupal_add_css($module_path . '/mediacommons_editorialworkflow.css', 'module');
-    drupal_add_js($module_path . '/js/mediacommons_editorialworkflow.js', array('type' => 'file', 'group' => JS_DEFAULT,));
+  drupal_add_css($module_path . '/mediacommons_editorialworkflow.css', 'module');
+  drupal_add_js($module_path . '/js/mediacommons_editorialworkflow.js', array('type' => 'file', 'group' => JS_DEFAULT,));
 }
 
 function mediacommons_editorialworkflow_form_hub_node_form_alter(&$form, &$form_state, $form_id) {
-  
-  /** Add CSS and JS files */
-	mediacommons_editorialworkflow_add_assets();
-	
-  $field = field_get_items('node', $form['#node'], 'field_type');
 
-  if (isset($field[0])) {
-    switch ($field[0]['value']) {
-      case 0 :
-        $form['#attributes']['class'][] = 'node-hub-type-video';          
-        break;
-          
-      case 1 :
-        $form['#attributes']['class'][] = 'node-hub-type-image';
-        break;
-    }
-  }
+	global $user;
+	
+	if (isset($user->contribute['contributor'])) {
+
+    /** Add CSS and JS files */
+	  mediacommons_editorialworkflow_add_assets();
+		
+		drupal_set_message(t('Contributing as @contributor.', array('@contributor' => $user->contribute['role'])), 'status');
+		
+    $field = field_get_items('node', $form['#node'], 'field_type');
+
+    if (isset($field[0])) {
+
+      switch ($field[0]['value']) {
+        case 0 :
+          $form['#attributes']['class'][] = 'node-hub-type-video';
+          break;
+
+        case 1 :
+          $form['#attributes']['class'][] = 'node-hub-type-image';
+          break;
+        }
+
+		}
+	}
+	else {
+    drupal_set_message(t('You are not allow to edit @title. If you are a the editor of this hub ask the maniging editor to assing you as an editor', array('@title' => $user->contribute['current_title'])), 'warning');
+	}
+	
 }
+
 function mediacommons_editorialworkflow_preprocess_image_widget(&$variables) {
   $element = &$variables['element'];
 }
 
 function mediacommons_editorialworkflow_form_spoke_node_form_alter(&$form, &$form_state, $form_id) {
   global $user;
+	
+	dpm(__FUNCTION__);
   
   mediacommons_editorialworkflow_add_assets();
 	

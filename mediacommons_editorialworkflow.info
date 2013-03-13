@@ -24,5 +24,22 @@ dependencies[] = toolbar
 dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = rdf
+
+dependencies[] = ctools
+dependencies[] = views
+dependencies[] = date
+dependencies[] = options
+dependencies[] = entity
+dependencies[] = entityreference
+dependencies[] = references
 dependencies[] = nodeformcols
-dependencies[] = mediacommons_datastructure
+dependencies[] = node_reference
+dependencies[] = user_reference
+dependencies[] = video_embed_field
+dependencies[] = corresponding_node_references
+dependencies[] = imagefield_crop
+
+dependencies[] = devel
+
+dependencies[] = mediacommons_imageextended
+# dependencies[] = mediacommons_datastructure
