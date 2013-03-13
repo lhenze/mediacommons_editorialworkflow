@@ -322,13 +322,30 @@ function mediacommons_editorialworkflow_preprocess_checkbox(&$variables) {
 }
 
 function mediacommons_editorialworkflow_node_presave($node) {
-
-	// Inserting a new node
-	// @TODO: test work, add validation
-  if (!$node->nid && $node->type == 'spoke') {
-		$node->field_contributors[$node->language][0]['uid'] = $node->uid;
+	// Inserting a new node @TODO: test work, add validation
+  if ($node->type == 'spoke') {
+    if (!$node->nid) {
+		  $node->field_contributors[$node->language][0]['uid'] = $node->uid;
+	  }
+		foreach($node->field_contributors[$node->language] as $contributor) {
+      $account = NULL;
+			$account_roles = array();
+      try {
+        $account = user_load($contributor['uid']);
+				if (!in_array('contributor', $account->roles) && 
+				   (
+				     !in_array('administrator', $account->roles) && 
+				     !in_array('editor', $account->roles) 
+					 )
+			  ) {
+          $account_roles['roles'] = $account->roles;
+          $account_roles['roles'][array_search('contributor', user_roles(TRUE))] = 'contributor';
+					user_save($account, $account_roles);
+				}
+      }
+	    catch (Exception $e) { }
+		}
 	}
-
 }
 
 function mediacommons_editorialworkflow_add_assets() {
