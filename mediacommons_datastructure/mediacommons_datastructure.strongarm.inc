@@ -13,175 +13,72 @@ function mediacommons_datastructure_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'nodeformscols_field_placements_hub_default';
-  $strongarm->value = array(
-    'title' => array(
-      'region' => 'main',
-      'weight' => 0,
-      'has_required' => 1,
-      'title' => 'Title',
-    ),
-    'additional_settings' => array(
-      'region' => 'main',
-      'weight' => 8,
-      'has_required' => 0,
-      'title' => 'Vertical tabs',
-      'hidden' => 0,
-    ),
-    'actions' => array(
-      'region' => 'main',
-      'weight' => 9,
-      'has_required' => 0,
-      'title' => 'Save',
-      'hidden' => 0,
-    ),
-    'field_cluster_tags' => array(
-      'region' => 'right',
-      'weight' => 3,
-      'has_required' => 0,
-      'title' => 'Tags',
-      'hidden' => 0,
-    ),
-    'field_contributors' => array(
-      'region' => 'right',
-      'weight' => 2,
-      'has_required' => 0,
-      'title' => 'Contributors',
-      'hidden' => 0,
-    ),
-    'field_description' => array(
-      'region' => 'main',
-      'weight' => 1,
-      'has_required' => 0,
-      'title' => 'Description',
-      'hidden' => 0,
-    ),
-    'field_field_period' => array(
-      'region' => 'right',
-      'weight' => 0,
-      'has_required' => 0,
-      'title' => 'Start and end dates',
-      'hidden' => 0,
-    ),
-    'field_representative_image' => array(
-      'region' => 'main',
-      'weight' => 4,
-      'has_required' => 0,
-      'title' => 'Representative Image',
-      'hidden' => 0,
-    ),
-    'field_spokes' => array(
-      'region' => 'right',
-      'weight' => 1,
-      'has_required' => 0,
-      'title' => 'Contributed Pieces',
-      'hidden' => 0,
-    ),
-    'field_type' => array(
-      'region' => 'main',
-      'weight' => 2,
-      'has_required' => 1,
-      'title' => 'Choose type',
-    ),
-    'field_video_embed_link' => array(
-      'region' => 'main',
-      'weight' => 3,
-      'has_required' => 0,
-      'title' => 'Video embed link',
-      'hidden' => 0,
-    ),
-    'field_co_editor' => array(
-      'region' => 'right',
-      'weight' => 4,
-      'has_required' => 0,
-      'title' => 'Co-editor',
-      'hidden' => 0,
-    ),
-  );
-  $export['nodeformscols_field_placements_hub_default'] = $strongarm;
+  $strongarm->name = 'admin_theme';
+  $strongarm->value = 'rubik';
+  $export['admin_theme'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'nodeformscols_field_placements_spoke_default';
-  $strongarm->value = array(
-    'title' => array(
-      'region' => 'main',
-      'weight' => 0,
-      'has_required' => 1,
-      'title' => 'Title',
-    ),
-    'additional_settings' => array(
-      'region' => 'main',
-      'weight' => 5,
-      'has_required' => 0,
-      'title' => 'Vertical tabs',
-      'hidden' => 0,
-    ),
-    'actions' => array(
-      'region' => 'main',
-      'weight' => 6,
-      'has_required' => 0,
-      'title' => 'Save',
-      'hidden' => 0,
-    ),
-    'field_attached_images' => array(
-      'region' => 'right',
-      'weight' => 2,
-      'has_required' => 0,
-      'title' => 'Attached Images',
-      'hidden' => 0,
-    ),
-    'field_body' => array(
-      'region' => 'main',
-      'weight' => 1,
-      'has_required' => 0,
-      'title' => 'Body',
-      'hidden' => 0,
-    ),
-    'field_part_of_hub' => array(
-      'region' => 'right',
-      'weight' => 0,
-      'has_required' => 0,
-      'title' => 'Part of',
-      'hidden' => 0,
-    ),
-    'field_pubstat' => array(
-      'region' => 'right',
-      'weight' => 3,
-      'has_required' => 1,
-      'title' => 'Publication Status',
-    ),
-    'field_contributors' => array(
-      'region' => 'right',
-      'weight' => 1,
-      'has_required' => 0,
-      'title' => 'Contributors',
-      'hidden' => 0,
-    ),
-  );
-  $export['nodeformscols_field_placements_spoke_default'] = $strongarm;
+  $strongarm->name = 'date_default_timezone';
+  $strongarm->value = 'America/Chicago';
+  $export['date_default_timezone'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'site_default_country';
-  $strongarm->value = '';
-  $export['site_default_country'] = $strongarm;
+  $strongarm->name = 'imagemagick_convert';
+  $strongarm->value = 'convert';
+  $export['imagemagick_convert'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'site_mail';
-  $strongarm->value = 'aortiz@nyu.edu';
-  $export['site_mail'] = $strongarm;
+  $strongarm->name = 'imagemagick_debug';
+  $strongarm->value = 0;
+  $export['imagemagick_debug'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'site_name';
-  $strongarm->value = 'MediaCommons Project';
-  $export['site_name'] = $strongarm;
+  $strongarm->name = 'imagemagick_quality';
+  $strongarm->value = '75';
+  $export['imagemagick_quality'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'image_toolkit';
+  $strongarm->value = 'imagemagick';
+  $export['image_toolkit'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mediacommons_imageextended_djatoka_metadataurl';
+  $strongarm->value = 'http://dl-img.home.nyu.edu/adore-djatoka?';
+  $export['mediacommons_imageextended_djatoka_metadataurl'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mediacommons_imageextended_djatoka_service';
+  $strongarm->value = 'http://dl-img.home.nyu.edu/adore-djatoka';
+  $export['mediacommons_imageextended_djatoka_service'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mediacommons_imageextended_djatoka_service_host';
+  $strongarm->value = 'http://dl-img.home.nyu.edu/adore-djatoka';
+  $export['mediacommons_imageextended_djatoka_service_host'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mediacommons_imageextended_openlayers';
+  $strongarm->value = 'a:1:{s:7:"plugins";a:1:{s:7:"openurl";a:3:{s:15:"openurlResolver";s:11:"Z39.88-2004";s:9:"serviceId";s:30:"info:lanl-repo/svc/getMetadata";s:11:"metadataurl";s:41:"http://dl-img.home.nyu.edu/adore-djatoka?";}}}';
+  $export['mediacommons_imageextended_openlayers'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

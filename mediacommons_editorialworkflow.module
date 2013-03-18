@@ -228,6 +228,7 @@ function mediacommons_editorialworkflow_preprocess_button(&$variables) {
 
     $element = &$variables['element'];
     
+    // disable submit button
     if (
         $element['#type'] == 'submit' /** submit buttons */
         && 
@@ -257,10 +258,6 @@ function mediacommons_editorialworkflow_preprocess_button(&$variables) {
           $element['#value'] = t('Add another contributor');
           break;
 
-        case 'field_additional_authors_add_more' :
-          $element['#value'] = t('Add another author');
-          break;
-
         case 'field_clusters_add_more' :
           $element['#value'] = t('Add another hub');
           break;
@@ -288,32 +285,56 @@ function mediacommons_editorialworkflow_preprocess_container(&$variables) {
 }
 
 function mediacommons_editorialworkflow_preprocess_textfield(&$variables) {
-  global $user;
+
+  $element = &$variables['element'];
   
-  if (isset($user->contribute)) {
-    $element = &$variables['element'];
-	  if ($element['#name'] == 'title') {
-      $element['#attributes']['placeholder'] = t('Untitled');
-    }
+  if ($element['#name'] == 'title') {
+    $element['#attributes']['placeholder'] = t('Untitled');
   }
 
 }
 
 function mediacommons_editorialworkflow_preprocess_checkbox(&$variables) {
+
   global $user;
   
-  if (isset($user->contribute) && !in_array('administrator', $user->roles)) { 
+  /** 
+   * User is coming with a is_contributor flag; the flag is the nid (int)
+   * of a known hub.
+   */  
+  $is_contributor_flag = isset($_GET['is_contributor']) ? (int)$_GET['is_contributor'] : 0;
+  
+  dpm($_SERVER);
+  
+  if (
+    isset($user->contribute) 
+    && !in_array('administrator', $user->roles)
+  ) {
+
     $element = &$variables['element'];
     
-    if (isset($element['#parents']) && isset($element['#parents'][0]) && $element['#parents'][0] == 'field_clusters') {
+    if (
+      isset($element['#parents']) // check if is set
+      && isset($element['#parents'][0]) // has parent
+      && $element['#parents'][0] == 'field_part_of_hub' // is a reference to a hub
+    ) {
       /** user have permission to add piece to this cluster */
-      if (isset($element['#return_value']) && !in_array($element['#return_value'], $user->contribute['hubs_can_contribute'])) {
+      if (isset($element['#return_value']) ) {
         
-        $element['#attributes'] = array(
-          'disabled' => 'disabled',
-          'class' => array('no-contributor-permission')
-        );
+        if (!in_array($element['#return_value'], $user->contribute['hubs_can_contribute'])) {
+          $element['#attributes'] = array(
+            'disabled' => 'disabled',
+            'class' => array('no-contributor-permission')
+          );
+        }
+        elseif ($element['#return_value'] == $is_contributor_flag) {
+          $element['#attributes'] = array(
+            'checked' => 'checked',
+            'class' => array('set-as-contribute-pieces')
+          );
+        }
       }
+      
 
       /** if is already checked and user is not the cluster manager; disable the field and mark as read-only */
       if ($element['#checked']) {
@@ -350,9 +371,16 @@ function mediacommons_editorialworkflow_add_assets() {
 
 function mediacommons_editorialworkflow_form_hub_node_form_alter(&$form, &$form_state, $form_id) {
 
-	global $user;
+  global $user;
+  
+  $node_exist = false;
+  
+  // node exist
+  if (isset($form['#node']->nid)) {
+    $node_exist = true;
+  }
 	
-	if (isset($user->contribute['contributor'])) {
+  if (isset($user->contribute['contributor'])) {
 
     /** Add CSS and JS files */
 	  mediacommons_editorialworkflow_add_assets();
@@ -362,7 +390,6 @@ function mediacommons_editorialworkflow_form_hub_node_form_alter(&$form, &$form_
     $field = field_get_items('node', $form['#node'], 'field_type');
 
     if (isset($field[0])) {
-
       switch ($field[0]['value']) {
         case 0 :
           $form['#attributes']['class'][] = 'node-hub-type-video';
@@ -371,13 +398,14 @@ function mediacommons_editorialworkflow_form_hub_node_form_alter(&$form, &$form_
         case 1 :
           $form['#attributes']['class'][] = 'node-hub-type-image';
           break;
-        }
-
-		}
-	}
-	else {
-    drupal_set_message(t('You are not allow to edit @title. If you are a the editor of this hub ask the maniging editor to assing you as an editor', array('@title' => $user->contribute['current_title'])), 'warning');
-	}
+      }
+	  }
+    else {
+      if ($node_exist) {
+        drupal_set_message(t('You are not allow to edit @title. If you are a the editor of this hub ask the maniging editor to assing you as an editor', array('@title' => $user->contribute['current_title'])), 'warning');
+      }
+    }
+  }
 	
 }
 
@@ -388,27 +416,34 @@ function mediacommons_editorialworkflow_preprocess_image_widget(&$variables) {
 function mediacommons_editorialworkflow_form_spoke_node_form_alter(&$form, &$form_state, $form_id) {
 
   global $user;
-	
-	mediacommons_editorialworkflow_add_assets();
-	
+  
+  /** add editorial workflow assest */
+  mediacommons_editorialworkflow_add_assets();
+  
   /** indication of that this form was process by the editorial workflow module */
   $form['#attributes']['class'][] = 'editorial-workflow';
-	
-	if (!isset($form['#node']->nid)) { dpm($user); }
-	
-	//if (!$node->nid) {}
   
-  if (isset($user->contribute['contributor'])) {
-    $form['#attributes']['class'][] = $user->contribute['role'];
-    if ($user->contribute['contributor']) {
-      drupal_set_message(t('Contributing as @contributor.', array('@contributor' => $user->contribute['role'])), 'status');
+  /** node exist */
+  if (isset($form['#node']->nid)) {
+    /** contributor is allow to edit node */
+    if (isset($user->contribute['contributor'])) {
+      $form['#attributes']['class'][] = $user->contribute['role'];
+      $message = t('Contributing as @contributor.', array('@contributor' => $user->contribute['role']));
     }
-		
+    /** user is not allow to edit node */
     else {
-      drupal_set_message(t('You are not allow to edit @title. If you are a contributor to this piece ask the primary author to add you as an additional author.', array('@title' => $user->contribute['current_title'])), 'warning');      
+      $message = t('You are not allow to edit @title. If you are a contributor to this piece ask the primary author to add you as an additional author.', array('@title' => $user->contribute['current_title']));
     }
-		
+    /** set message */
+    drupal_set_message($message, 'warning');
   }
+  
+  /** New spoke */
+  else {
+
+    
+  }
+   
 }
 
 /*
@@ -440,7 +475,7 @@ function mediacommons_editorialworkflow_cron_queue_info() {
  */
 function mediacommons_editorialworkflow_promote_user($data) {
 	
-	drush_print(__FUNCTION__);
+	// drush_print(__FUNCTION__);
 
 	if (
 	  isset($data['uid']) // we have a user account ID
@@ -464,10 +499,11 @@ function mediacommons_editorialworkflow_promote_user($data) {
         // load user account
         $account = user_load($uid);
 
-        if (!in_array('contributor', $account->roles) &&  // user is already a contributor?
-          (
-            !in_array('administrator', $account->roles) && // if user is an administrator we don't need to add him the contributor roles
-            !in_array('editor', $account->roles) // if user is an editor we don't need to add him the contributor roles
+        if (
+          !in_array('contributor', $account->roles) // user is already a contributor?
+          && (
+            !in_array('administrator', $account->roles) // if user is an administrator we don't need to add him the contributor roles
+            && !in_array('editor', $account->roles) // if user is an editor we don't need to add him the contributor roles
           )
         ) {
 
@@ -487,16 +523,9 @@ function mediacommons_editorialworkflow_promote_user($data) {
         }
 				
 			}
-      else {
-
-      }
-				
-
     }
     catch (Exception $e) {
-    	
       _mediacommons_editorialworkflow_watchdog_log($e->getMessage());
-
     }
 	}
 }

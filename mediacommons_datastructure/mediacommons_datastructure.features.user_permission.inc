@@ -14,9 +14,9 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['access comments'] = array(
     'name' => 'access comments',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'anonymous user',
-      2 => 'authenticated user',
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'comment',
   );
@@ -25,9 +25,9 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['access content'] = array(
     'name' => 'access content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'anonymous user',
-      2 => 'authenticated user',
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'node',
   );
@@ -36,7 +36,7 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['access content overview'] = array(
     'name' => 'access content overview',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -45,7 +45,8 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['access mediacommons content'] = array(
     'name' => 'access mediacommons content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'mediacommons_editorialworkflow',
   );
@@ -54,7 +55,10 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['access mediacommons dashboard'] = array(
     'name' => 'access mediacommons dashboard',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'contributor' => 'contributor',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'mediacommons_editorialworkflow',
   );
@@ -63,7 +67,9 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['admin contributors content'] = array(
     'name' => 'admin contributors content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'mediacommons_editorialworkflow',
   );
@@ -72,7 +78,7 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['administer content types'] = array(
     'name' => 'administer content types',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -81,7 +87,7 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['administer mediacommons'] = array(
     'name' => 'administer mediacommons',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'mediacommons_imageextended',
   );
@@ -90,7 +96,8 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['administer nodes'] = array(
     'name' => 'administer nodes',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'node',
   );
@@ -99,7 +106,7 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['bypass node access'] = array(
     'name' => 'bypass node access',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -108,7 +115,9 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['contribute content hub'] = array(
     'name' => 'contribute content hub',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'mediacommons_editorialworkflow',
   );
@@ -117,7 +126,10 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['contribute content spoke'] = array(
     'name' => 'contribute content spoke',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'contributor' => 'contributor',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'mediacommons_editorialworkflow',
   );
@@ -125,7 +137,11 @@ function mediacommons_datastructure_user_default_permissions() {
   // Exported permission: create hub content.
   $permissions['create hub content'] = array(
     'name' => 'create hub content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
+    ),
     'module' => 'node',
   );
 
@@ -133,7 +149,8 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['create page content'] = array(
     'name' => 'create page content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'node',
   );
@@ -141,7 +158,12 @@ function mediacommons_datastructure_user_default_permissions() {
   // Exported permission: create spoke content.
   $permissions['create spoke content'] = array(
     'name' => 'create spoke content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'contributor' => 'contributor',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
+    ),
     'module' => 'node',
   );
 
@@ -156,7 +178,7 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['delete any page content'] = array(
     'name' => 'delete any page content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -164,14 +186,22 @@ function mediacommons_datastructure_user_default_permissions() {
   // Exported permission: delete any spoke content.
   $permissions['delete any spoke content'] = array(
     'name' => 'delete any spoke content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: delete own hub content.
   $permissions['delete own hub content'] = array(
     'name' => 'delete own hub content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
+    ),
     'module' => 'node',
   );
 
@@ -179,7 +209,8 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['delete own page content'] = array(
     'name' => 'delete own page content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'node',
   );
@@ -187,7 +218,11 @@ function mediacommons_datastructure_user_default_permissions() {
   // Exported permission: delete own spoke content.
   $permissions['delete own spoke content'] = array(
     'name' => 'delete own spoke content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
+    ),
     'module' => 'node',
   );
 
@@ -195,7 +230,8 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['delete revisions'] = array(
     'name' => 'delete revisions',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'node',
   );
@@ -203,7 +239,11 @@ function mediacommons_datastructure_user_default_permissions() {
   // Exported permission: edit any hub content.
   $permissions['edit any hub content'] = array(
     'name' => 'edit any hub content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
+    ),
     'module' => 'node',
   );
 
@@ -211,7 +251,8 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['edit any page content'] = array(
     'name' => 'edit any page content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'node',
   );
@@ -219,7 +260,11 @@ function mediacommons_datastructure_user_default_permissions() {
   // Exported permission: edit any spoke content.
   $permissions['edit any spoke content'] = array(
     'name' => 'edit any spoke content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
+    ),
     'module' => 'node',
   );
 
@@ -227,7 +272,7 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['edit own comments'] = array(
     'name' => 'edit own comments',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'comment',
   );
@@ -235,7 +280,11 @@ function mediacommons_datastructure_user_default_permissions() {
   // Exported permission: edit own hub content.
   $permissions['edit own hub content'] = array(
     'name' => 'edit own hub content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
+    ),
     'module' => 'node',
   );
 
@@ -243,7 +292,8 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['edit own page content'] = array(
     'name' => 'edit own page content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'node',
   );
@@ -251,7 +301,12 @@ function mediacommons_datastructure_user_default_permissions() {
   // Exported permission: edit own spoke content.
   $permissions['edit own spoke content'] = array(
     'name' => 'edit own spoke content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'contributor' => 'contributor',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
+    ),
     'module' => 'node',
   );
 
@@ -259,8 +314,8 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['post comments'] = array(
     'name' => 'post comments',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'authenticated user',
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'comment',
   );
@@ -269,7 +324,8 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['promote hub content'] = array(
     'name' => 'promote hub content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'mediacommons_editorialworkflow',
   );
@@ -278,7 +334,10 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['revert revisions'] = array(
     'name' => 'revert revisions',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'contributor' => 'contributor',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'node',
   );
@@ -287,7 +346,8 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['set current hub'] = array(
     'name' => 'set current hub',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'mediacommons_editorialworkflow',
   );
@@ -296,7 +356,9 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['set upcoming hub'] = array(
     'name' => 'set upcoming hub',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'mediacommons_editorialworkflow',
   );
@@ -305,8 +367,8 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['skip comment approval'] = array(
     'name' => 'skip comment approval',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'authenticated user',
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'comment',
   );
@@ -315,9 +377,9 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['use text format filtered_html'] = array(
     'name' => 'use text format filtered_html',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'anonymous user',
-      2 => 'authenticated user',
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'filter',
   );
@@ -326,7 +388,7 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['use text format full_html'] = array(
     'name' => 'use text format full_html',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'filter',
   );
@@ -335,7 +397,10 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['view own unpublished content'] = array(
     'name' => 'view own unpublished content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'contributor' => 'contributor',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'node',
   );
@@ -344,7 +409,10 @@ function mediacommons_datastructure_user_default_permissions() {
   $permissions['view revisions'] = array(
     'name' => 'view revisions',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
+      'contributor' => 'contributor',
+      'editor' => 'editor',
+      'managing editor' => 'managing editor',
     ),
     'module' => 'node',
   );

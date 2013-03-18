@@ -9,7 +9,9 @@
     Drupal.behaviors.mediacommons_editorialworkflow.attach = function(context) {
         if (window.console) console.log('attach mediacommons_editorialworkflow');
         
-        /** Hide messages 
+        /** Hide messages */
+        
+        /**
         setTimeout(function() {
           $('#console').hide();
         }, 3000);
@@ -21,16 +23,11 @@
                 originalTarget = targetArea.next().children('span').children('a'),
                 currentTargetSource = currentTarget.attr('src'),
                 originalTargetSource = originalTarget.attr('href');
-                
-                currentTarget.addClass('mediacommons_editorialworkflow_proceeded');
-                
-                targetArea.append('<div class="image-preview-actions"><a href="#crop" class="crop">crop</a> <a href="#remove" class="remove mdelete">remove</a></div>');
-                
+                currentTarget.addClass('mediacommons_editorialworkflow_proceeded');               
+                targetArea.append('<div class="image-preview-actions"><a href="#crop" class="crop">crop</a> <a href="#remove" class="remove mdelete">remove</a></div>');               
                 currentTarget.removeAttr('width');
                 currentTarget.removeAttr('height');
                 currentTarget.attr({ 'data-fullsize': originalTargetSource, 'data-preview': currentTargetSource });
-                
-                
         });
        
         $("body").delegate("#edit-field-type input:radio", "change", function(e) {
