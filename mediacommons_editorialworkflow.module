@@ -108,7 +108,7 @@ function mediacommons_editorialworkflow_mail($key, &$message, $params) {
 
   switch ($key) {
     // Send a simple message from the contact form.
-    case 'user_promoted':
+    case 'contributor':
       $message['subject'] = t('E-mail sent from @site-name', array('@site-name' => variable_get('site_name', 'MediaCommons Project')), $options);
       
       // Note that the message body is an array, not a string.
@@ -134,13 +134,18 @@ function mediacommons_editorialworkflow_mail($key, &$message, $params) {
  *   $form_values['message'].
  */
 function mediacommons_editorialworkflow_mail_send($form_values) {
+
   // All system mails need to specify the module and template key (mirrored from
   // hook_mail()) that the message they want to send comes from.
   $module = 'mediacommons_editorialworkflow';
+  
+  // what action to takes
   $key = $form_values['key'];
 
-  // Specify 'to' and 'from' addresses.
+  // Specify 'to' addresses.
   $to = $form_values['email'];
+  
+  // Specify 'from' addresses
   $from = $form_values['from'];
 
   // "params" loads in additional context for email content completion in
@@ -173,7 +178,7 @@ function mediacommons_editorialworkflow_mail_send($form_values) {
   $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
   
   if ($result['result'] == TRUE) {
-    watchdog($module, t('Email message has been sent to @contributor. Sender @sender', array('@contributor' => $to, '@sender' => $from)), WATCHDOG_INFO);
+    // watchdog($module, t('Email message has been sent to @contributor. Sender @sender', array('@contributor' => $to, '@sender' => $from)), WATCHDOG_INFO);
     drupal_set_message(t('Your message has been sent.'));
   }
   else {
@@ -641,14 +646,12 @@ function mediacommons_editorialworkflow_promote_user($data) {
 				  // log task
 				  watchdog('mediacommons_editorialworkflow', 'User @user was promoted to contributor by @sponsor.', array('@user' => $account->name, '@sponsor' => $sponsor->name), WATCHDOG_NOTICE);
         
-				  // send notifications
-				  
-				  /** Need a email/language to send. */				
+				  // send notifications	
           mediacommons_editorialworkflow_mail_send(
             array(
               'email' => $account->mail,
               'from' => $sponsor->mail,
-              'key' => 'user_promoted',
+              'key' => 'contributor_promoted',
             )
           );
           
@@ -674,17 +677,10 @@ function mediacommons_editorialworkflow_promote_user($data) {
 function _mediacommons_editorialworkflow_watchdog_log($error, $object = NULL, $backtrace = TRUE) {
 	
   $object_msg = $object ? 'Object: ' . var_export($object, TRUE) : '';
-	
   $bt = $backtrace ? 'Backtrace: ' . var_export(debug_backtrace(), TRUE) : '';
-  
   watchdog('PHP', "Error message: %error<br>\n%object<br>\n%bt", array('%error' => $error, '%object' => $object_msg, '%bt' => $bt), WATCHDOG_ERROR);
-  
   $last_id = db_query("SELECT 1", array(), array('return' => Database::RETURN_INSERT_ID));
-  
   $msg = t("Error: !id", array('!id' => $last_id));
-  
   $err_msg = user_access('access site reports') ? l($msg, 'admin/reports/event/' . $last_id) : $msg;
-  
   drupal_set_message($err_msg, 'error');
-	
 }
