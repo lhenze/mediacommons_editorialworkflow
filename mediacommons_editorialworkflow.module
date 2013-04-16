@@ -1,7 +1,7 @@
 <?php
 
 function mediacommons_editorialworkflow_init() {
-  
+
   if (isset($_GET['mail'])) {
     /** Need a email/language to send. */       
     mediacommons_editorialworkflow_mail_send(
@@ -13,7 +13,7 @@ function mediacommons_editorialworkflow_init() {
       )
     );
   }
-	
+
   $path_is_admin = path_is_admin(current_path());
   
   if ($path_is_admin) {
@@ -464,8 +464,6 @@ function mediacommons_editorialworkflow_preprocess_checkbox(&$variables) {
           );
         }
       }
-      
-
       /** if is already checked and user is not the cluster manager; disable the field and mark as read-only */
       if ($element['#checked']) {
         $element['#attributes'] = array(
@@ -478,31 +476,44 @@ function mediacommons_editorialworkflow_preprocess_checkbox(&$variables) {
 }
 
 function mediacommons_editorialworkflow_node_presave($node) {
-	
-	// Inserting a new node @TODO: test work, add validation
-  if ($node->type == 'spoke') {
+  switch ($node->type) {
+		case 'hub' :
+
+		  break;
   	
-    if (!$node->nid) {
-      $author_is_listed = FALSE;
-      if (count($node->field_contributors[$node->language])) {
-        foreach($node->field_contributors[$node->language] as $struct) {
-          // author is already part of the list of contributors
-          if ($node->uid == $struct['uid']) {
-            $author_is_listed = TRUE;
-            break;
+		case 'spoke' :
+		
+      if (!is_array($node->field_contributors[$node->language])) {
+        $node->field_contributors[$node->language] = array();
+      }
+        		
+	    if (!$node->nid) {
+	    	
+        $author_is_listed = FALSE;
+        
+        if (count($node->field_contributors[$node->language])) {
+          foreach($node->field_contributors[$node->language] as $struct) {
+            // author is already part of the list of contributors
+            if ($node->uid == $struct['uid']) {
+              $author_is_listed = TRUE;
+              break;
+            }
           }
         }
+        
+        if (!$author_is_listed) {
+          array_unshift($node->field_contributors[$node->language], array('uid' => $node->uid));
+        }
+        
       }
-      if (!$author_is_listed) {
-        array_unshift($node->field_contributors[$node->language], array('uid' => $node->uid));
-      }
-    }
-		
-		foreach($node->field_contributors[$node->language] as $contributor) {
-      $queue = DrupalQueue::get('mediacommons_editorialworkflow_promote_user_worker');
-      $queue->createItem( $contributor += array('sponsor' => $node->uid));
-		}
-	}
+      
+		  foreach($node->field_contributors[$node->language] as $contributor) {
+        $queue = DrupalQueue::get('mediacommons_editorialworkflow_promote_user_worker');
+        $queue->createItem( $contributor += array('sponsor' => $node->uid));
+		  }
+		  
+		  break;
+  }
 }
 
 function mediacommons_editorialworkflow_add_assets() {
@@ -521,6 +532,11 @@ function mediacommons_editorialworkflow_form_hub_node_form_alter(&$form, &$form_
   if (isset($form['#node']->nid)) {
     $node_exist = true;
   }
+  
+  // node exist
+  if (isset($form['#node']->nid)) {
+    dpm($form['#node']->field_cluster_tags);
+  }  
 	
   if (isset($user->contribute['contributor'])) {
 
@@ -548,7 +564,7 @@ function mediacommons_editorialworkflow_form_hub_node_form_alter(&$form, &$form_
       }
     }
   }
-	
+
 }
 
 function mediacommons_editorialworkflow_preprocess_image_widget(&$variables) {
