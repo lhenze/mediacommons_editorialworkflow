@@ -31,7 +31,6 @@ function mediacommons_editorialworkflow_install() {
   
   if (module_exists('corresponding_node_references')) {
     if (db_table_exists('corresponding_node_references')) {
-      //  = 1
       db_insert('corresponding_node_references')
         ->fields(array(
           'node_types_content_fields' => 'hub*field_spokes*spoke*field_part_of_hub',
