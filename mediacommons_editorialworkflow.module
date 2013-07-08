@@ -191,6 +191,7 @@ function mediacommons_editorialworkflow_mail_send($form_values) {
 /**
  * Implements hook_node_info().
  */
+/**
 function mediacommons_editorialworkflow_node_info() {
   $items = array(
     'hub' => array(
@@ -212,6 +213,7 @@ function mediacommons_editorialworkflow_node_info() {
   );
   return $items;
 }
+*/
 
 /**
  * Implementation of hook_perm().
@@ -404,9 +406,8 @@ function mediacommons_editorialworkflow_preprocess_container(&$variables) {
     $element = &$variables['element'];
     if (isset($element['#id'])) {
       switch ($element['#id']) {
-        case 'edit-field-video-embed-link' :
+        case 'edit-field-mbed' :
         case 'edit-field-representative-image' :
-        case 'edit-field-tease-image' :
           $element['#attributes']['class'][] = 'invisible-element';
           break;
       }
@@ -444,7 +445,7 @@ function mediacommons_editorialworkflow_preprocess_checkbox(&$variables) {
     if (
       isset($element['#parents']) // check if is set
       && isset($element['#parents'][0]) // has parent
-      && $element['#parents'][0] == 'field_part_of_hub' // is a reference to a hub
+      && $element['#parents'][0] == 'field_part_of' // is a reference to a hub
     ) {
       /** user have permission to add piece to this cluster */
       if (isset($element['#return_value']) ) {
@@ -668,30 +669,10 @@ function mediacommons_editorialworkflow_promote_user($data) {
           
         }
 				
-			}
+      }
     }
     catch (Exception $e) {
-      _mediacommons_editorialworkflow_watchdog_log($e->getMessage());
+      drupal_set_essage($e->getMessage(), 'error');
     }
-	}
-}
-
-/**
- * Log and display the error
- * @param string $error Error to report
- * @param object/array $object Object to include with the log
- * @param bool $backtrace TRUE if watchdog log should include full backtrace of the error
- * 
- * http://api.drupal.org/api/drupal/includes%21bootstrap.inc/function/watchdog/7
- * 
- */
-function _mediacommons_editorialworkflow_watchdog_log($error, $object = NULL, $backtrace = TRUE) {
-	
-  $object_msg = $object ? 'Object: ' . var_export($object, TRUE) : '';
-  $bt = $backtrace ? 'Backtrace: ' . var_export(debug_backtrace(), TRUE) : '';
-  watchdog('PHP', "Error message: %error<br>\n%object<br>\n%bt", array('%error' => $error, '%object' => $object_msg, '%bt' => $bt), WATCHDOG_ERROR);
-  $last_id = db_query("SELECT 1", array(), array('return' => Database::RETURN_INSERT_ID));
-  $msg = t("Error: !id", array('!id' => $last_id));
-  $err_msg = user_access('access site reports') ? l($msg, 'admin/reports/event/' . $last_id) : $msg;
-  drupal_set_message($err_msg, 'error');
+  }
 }
