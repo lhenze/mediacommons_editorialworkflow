@@ -10,14 +10,14 @@
 function mc_fields_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-hub-field_cluster_tags'.
-  $fields['node-hub-field_cluster_tags'] = array(
+  // Exported field: 'node-hub-field_tags'.
+  $fields['node-hub-field_tags'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_cluster_tags',
+      'field_name' => 'field_tags',
       'foreign keys' => array(
         'tid' => array(
           'columns' => array(
@@ -65,7 +65,7 @@ function mc_fields_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_cluster_tags',
+      'field_name' => 'field_tags',
       'label' => 'Tags',
       'required' => 0,
       'settings' => array(
@@ -79,7 +79,7 @@ function mc_fields_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '6',
+        'weight' => '8',
       ),
     ),
   );
@@ -163,7 +163,7 @@ function mc_fields_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'user_reference_autocomplete',
-        'weight' => '9',
+        'weight' => '7',
       ),
     ),
   );
@@ -249,19 +249,19 @@ function mc_fields_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'user_reference_autocomplete',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
 
   // Exported field: 'node-hub-field_description'.
-  $fields['node-hub-field_description'] = array(
+  $fields['node-hub-field_body'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_description',
+      'field_name' => 'field_body',
       'foreign keys' => array(
         'format' => array(
           'columns' => array(
@@ -302,7 +302,7 @@ function mc_fields_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_description',
+      'field_name' => 'field_body',
       'label' => 'Description',
       'required' => 0,
       'settings' => array(
@@ -321,14 +321,14 @@ function mc_fields_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-hub-field_field_period'.
-  $fields['node-hub-field_field_period'] = array(
+  // Exported field: 'node-hub-field_period'.
+  $fields['node-hub-field_period'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_field_period',
+      'field_name' => 'field_period',
       'foreign keys' => array(),
       'indexes' => array(),
       'locked' => '0',
@@ -371,7 +371,7 @@ function mc_fields_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_field_period',
+      'field_name' => 'field_period',
       'label' => 'Start and end dates',
       'required' => 0,
       'settings' => array(
@@ -393,7 +393,7 @@ function mc_fields_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_select',
-        'weight' => '7',
+        'weight' => '9',
       ),
     ),
   );
@@ -482,6 +482,73 @@ function mc_fields_field_default_fields() {
       ),
     ),
   );
+  
+  // Exported field: 'node-hub-field_pubstat'.
+  $fields['node-hub-field_pubstat'] = array(
+      'field_config' => array(
+          'active' => '1',
+          'cardinality' => '1',
+          'deleted' => '0',
+          'entity_types' => array(),
+          'field_name' => 'field_pubstat',
+          'foreign keys' => array(),
+          'indexes' => array(
+              'value' => array(
+                  0 => 'value',
+              ),
+          ),
+          'locked' => '0',
+          'module' => 'list',
+          'settings' => array(
+              'allowed_values' => array(
+                  0 => 'Work in progress',
+                  1 => 'Ready',
+              ),
+              'allowed_values_function' => '',
+          ),
+          'translatable' => '0',
+          'type' => 'list_integer',
+      ),
+      'field_instance' => array(
+          'bundle' => 'hub',
+          'default_value' => array(
+              0 => array(
+                  'value' => '0',
+              ),
+          ),
+          'deleted' => '0',
+          'description' => 'Publish or unpublish this piece. (You can unpublish something that has already been published.)',
+          'display' => array(
+          'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => '5',
+              ),
+              'teaser' => array(
+              'label' => 'hidden',
+              'settings' => array(),
+              'type' => 'hidden',
+              'weight' => '4',
+              ),
+              ),
+              'entity_type' => 'node',
+              'field_name' => 'field_pubstat',
+              'label' => 'Publication Status',
+              'required' => 1,
+              'settings' => array(
+              'user_register_form' => FALSE,
+              ),
+              'widget' => array(
+              'active' => 1,
+              'module' => 'options',
+              'settings' => array(),
+              'type' => 'options_select',
+              'weight' => '10',
+              ),
+      ),
+  );  
 
   // Exported field: 'node-hub-field_spokes'.
   $fields['node-hub-field_spokes'] = array(
@@ -554,7 +621,7 @@ function mc_fields_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '11',
+        'weight' => '5',
       ),
     ),
   );
@@ -704,13 +771,13 @@ function mc_fields_field_default_fields() {
         ),
       ),
       'locked' => '0',
-      'module' => 'mediacommons_imageextended',
+      'module' => 'imagefield_crop_extended',
       'settings' => array(
         'default_image' => 0,
         'uri_scheme' => 'public',
       ),
       'translatable' => '0',
-      'type' => 'mediacommons_imageextended',
+      'type' => 'imagefield_crop_extended',
     ),
     'field_instance' => array(
       'bundle' => 'spoke',
@@ -719,9 +786,9 @@ function mc_fields_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'mediacommons_imageextended',
+          'module' => 'imagefield_crop_extended',
           'settings' => array(),
-          'type' => 'mediacommons_imageextended_original',
+          'type' => 'image',
           'weight' => 6,
         ),
         'teaser' => array(
@@ -737,18 +804,18 @@ function mc_fields_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'file_directory' => '',
-        'file_extensions' => 'jp2 tif tiff jpg jpeg gif',
+        'file_extensions' => 'png gif jpg jpeg',
         'max_filesize' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'mediacommons_imageextended',
+        'module' => 'imagefield_crop_extended',
         'settings' => array(
           'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),
-        'type' => 'mediacommons_imageextended',
+        'type' => 'imagefield_crop_extended',
         'weight' => '2',
       ),
     ),
@@ -907,14 +974,14 @@ function mc_fields_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-spoke-field_part_of_hub'.
-  $fields['node-spoke-field_part_of_hub'] = array(
+  // Exported field: 'node-spoke-field_part_of'.
+  $fields['node-spoke-field_part_of'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_part_of_hub',
+      'field_name' => 'field_part_of',
       'foreign keys' => array(
         'nid' => array(
           'columns' => array(
@@ -967,7 +1034,7 @@ function mc_fields_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_part_of_hub',
+      'field_name' => 'field_part_of',
       'label' => 'Part of hub',
       'required' => 0,
       'settings' => array(
@@ -1045,7 +1112,7 @@ function mc_fields_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '4',
+        'weight' => '6',
       ),
     ),
   );

@@ -477,6 +477,7 @@ function mediacommons_editorialworkflow_preprocess_checkbox(&$variables) {
 }
 
 function mediacommons_editorialworkflow_node_presave($node) {
+
   // Inserting a new node @TODO: test work, add validation
   if ($node->type == 'spoke') {	
     if (!$node->nid) {
