@@ -418,9 +418,10 @@ function mediacommons_editorialworkflow_preprocess_container(&$variables) {
 function mediacommons_editorialworkflow_preprocess_textfield(&$variables) {
 
   $element = &$variables['element'];
-  
-  if ($element['#name'] == 'title') {
-    $element['#attributes']['placeholder'] = t('Untitled');
+  if (isset($element['#name'])) {
+    if ($element['#name'] == 'title') {
+      $element['#attributes']['placeholder'] = t('Untitled');
+    }
   }
 
 }
