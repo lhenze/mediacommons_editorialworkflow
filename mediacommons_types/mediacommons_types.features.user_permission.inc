@@ -13,63 +13,83 @@ function mediacommons_types_user_default_permissions() {
   // Exported permission: 'access mediacommons content'.
   $permissions['access mediacommons content'] = array(
     'name' => 'access mediacommons content',
-    'roles' => array(),
+    'roles' => array(
+      'admin' => 'admin',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
     'module' => 'mediacommons_editorialworkflow',
   );
 
   // Exported permission: 'access mediacommons dashboard'.
   $permissions['access mediacommons dashboard'] = array(
     'name' => 'access mediacommons dashboard',
-    'roles' => array(),
+    'roles' => array(
+      'admin' => 'admin',
+    ),
     'module' => 'mediacommons_editorialworkflow',
   );
 
   // Exported permission: 'admin contributors content'.
   $permissions['admin contributors content'] = array(
     'name' => 'admin contributors content',
-    'roles' => array(),
+    'roles' => array(
+      'admin' => 'admin',
+    ),
     'module' => 'mediacommons_editorialworkflow',
   );
 
   // Exported permission: 'contribute content hub'.
   $permissions['contribute content hub'] = array(
     'name' => 'contribute content hub',
-    'roles' => array(),
+    'roles' => array(
+      'admin' => 'admin',
+    ),
     'module' => 'mediacommons_editorialworkflow',
   );
 
   // Exported permission: 'contribute content spoke'.
   $permissions['contribute content spoke'] = array(
     'name' => 'contribute content spoke',
-    'roles' => array(),
+    'roles' => array(
+      'admin' => 'admin',
+    ),
     'module' => 'mediacommons_editorialworkflow',
   );
 
   // Exported permission: 'promote hub content'.
   $permissions['promote hub content'] = array(
     'name' => 'promote hub content',
-    'roles' => array(),
+    'roles' => array(
+      'admin' => 'admin',
+    ),
     'module' => 'mediacommons_editorialworkflow',
   );
 
   // Exported permission: 'promote users role'.
   $permissions['promote users role'] = array(
     'name' => 'promote users role',
-    'roles' => array(),
+    'roles' => array(
+      'admin' => 'admin',
+    ),
     'module' => 'mediacommons_editorialworkflow',
   );
 
   // Exported permission: 'set current hub'.
   $permissions['set current hub'] = array(
     'name' => 'set current hub',
-    'roles' => array(),
+    'roles' => array(
+      'admin' => 'admin',
+    ),
     'module' => 'mediacommons_editorialworkflow',
   );
 
   // Exported permission: 'set upcoming hub'.
   $permissions['set upcoming hub'] = array(
     'name' => 'set upcoming hub',
-    'roles' => array(),
+    'roles' => array(
+      'admin' => 'admin',
+    ),
     'module' => 'mediacommons_editorialworkflow',
   );
 
